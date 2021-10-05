@@ -1,14 +1,13 @@
 import React from 'react'
 
-export default function SearchedBooksItem({book_s,change}) {
-      book_s.position = 'none'
+export default function SearchedBooksItem({book_s,add}) {
     return (
         <li>
         <div className="book">
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book_s.imageLinks.thumbnail})` }}></div>
             <div className="book-shelf-changer">
-            <select value={book_s.position} onChange={(e)=>{change(e.target.value,book_s)}}>
+            <select value='none' onChange={(e)=>{add(e.target.value,book_s)}}>
               <option value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>

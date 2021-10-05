@@ -55,18 +55,36 @@ class BooksApp extends React.Component {
   authors:"Mark Twain",
   cover:"http://books.google.com/books/content?id=32haAAAAMAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72yckZ5f5bDFVIf7BGPbjA0KYYtlQ__nWB-hI_YZmZ-fScYwFy4O_fWOcPwf-pgv3pPQNJP_sT5J_xOUciD8WaKmevh1rUR-1jk7g1aCD_KeJaOpjVu0cm_11BBIUXdxbFkVMdi&source=gbs_api"
 }
-    ]
+    ],
+    storedBooks:JSON.parse(localStorage.getItem('books'))
   }
-
+componentDidMount(){
+  if(this.state.storedBooks!==null){
+    let allBooks = this.state.storedBooks;
+    this.setState({allBooks})
+  }
+}
   handleChange = (selection,book) => {
     let index=this.state.allBooks.indexOf(book)
     const moved_book=this.state.allBooks[index]
-    console.log(moved_book)
     moved_book.position=selection
     this.setState({book:moved_book})
+    localStorage.setItem('books',JSON.stringify(this.state.allBooks))
 }
-
+  handleAdd=(selection,book)=>{
+    const added_book={
+      id:book.id,
+      position:selection,
+      title:book.title,
+      author:book.author,
+      cover:book.imageLinks.thumbnail
+    }
+    let allbooks=this.state.allBooks.push(added_book)
+    this.setState({allbooks})
+    localStorage.setItem('books',JSON.stringify(this.state.allBooks))
+  }
   render() {
+    console.log(this.state.storedBooks)
     const{allBooks}=this.state
     return (
       <BrowserRouter>
@@ -81,6 +99,7 @@ class BooksApp extends React.Component {
           <Route path="/search">
           <Search
           allBooks={allBooks}
+          add={this.handleAdd}
           change={this.handleChange}
           />
           </Route>

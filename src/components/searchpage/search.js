@@ -4,7 +4,7 @@ import * as BooksAPI from './BooksAPI'
 import SearchedBooksItem from './searchedbooks'
 import Removedbooks from './removedbooks'
 
-export default function Search({change,allBooks}) {
+export default function Search({change,allBooks,add}) {
   const [searched,setSearched]=useState('')
   const [searchedBooks,setSearchedBooks]=useState([])
   useEffect(() => {
@@ -14,7 +14,6 @@ export default function Search({change,allBooks}) {
       search_function()
     
   }, [searched,searchedBooks])
-  console.log(searchedBooks)
     return (
         <div className="search-books">
         <div className="search-books-bar">
@@ -32,7 +31,7 @@ export default function Search({change,allBooks}) {
               <SearchedBooksItem
               key={book.id}
               book_s={book}
-              change={change}
+              add={add}
               />
             ))}
             {allBooks.filter(book=>book.position==='none')
