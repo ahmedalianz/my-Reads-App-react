@@ -3,6 +3,7 @@ My-Reads App =>> Running on the following link : https://my-readsz1.netlify.app
 it's an application that lets the user choose his favorite books from a bookshelf
 
 it has 2 sections
+
 1- the main page :
 
 the main page also has 3 sections 
