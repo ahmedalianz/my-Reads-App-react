@@ -9,8 +9,11 @@ it has 2 sections
 the main page also has 3 sections 
 
 a-the currently reading books
+
 b-the books you want to read 
+
 c-the books you already read
+
 
 you can remove any book to return it to the bookshelf
 
