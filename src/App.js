@@ -17,25 +17,26 @@ async componentDidMount(){
   }
 }
 
-  handleChange = (selection,book) => {
-    let index=this.state.allBooks.indexOf(book)
-    let moved_book=this.state.allBooks[index]
-    moved_book.shelf=selection
-    this.setState({book:moved_book})
-    BooksAPI.update(moved_book, selection)
-}
-  handleAdd=(selection,book)=>{
-    const added_book={
-      id:book.id,
-      shelf:selection,
-      title:book.title,
-      author:book.author,
-      imageLinks:book.imageLinks
+  handleChange = (selection,book,existing) => {
+    if(!existing){
+      let index=this.state.allBooks.indexOf(book)
+      let moved_book=this.state.allBooks[index]
+      moved_book.shelf=selection
+      this.setState({book:moved_book})
+      BooksAPI.update(moved_book, selection)
+    }else{
+      const moved_book={
+        id:book.id,
+        shelf:selection,
+        title:book.title,
+        author:book.author,
+        imageLinks:book.imageLinks
+      }
+      let allbooks=this.state.allBooks.push(moved_book)
+      this.setState({allbooks})
+      BooksAPI.update(moved_book, selection)
     }
-    let allbooks=this.state.allBooks.push(added_book)
-    this.setState({allbooks})
-    BooksAPI.update(added_book, selection)
-  }
+}
   render() {
     const{allBooks}=this.state
     return (

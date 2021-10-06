@@ -1,10 +1,21 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
-import SearchedBooksItem from './searchedbooks'
 import * as BooksAPI from '../../BooksAPI'
-export default function Search({change,allBooks,add}) {
+import Section from '../section'
+export default function Search({change,allBooks}) {
   const [searched,setSearched]=useState('')
   const [searchedBooks,setSearchedBooks]=useState([])
+  searchedBooks.map((book) =>{
+    const existingBook=allBooks.find(b=> b.id===book.id)
+    console.log(existingBook)
+    if(existingBook){
+      book.shelf=existingBook.shelf
+    }else{
+      book.shelf='none'
+    }
+    return book
+  })
+
   useEffect(() => {
     async function search_function(){
       if(searched!==''){
@@ -19,10 +30,13 @@ export default function Search({change,allBooks,add}) {
         catch(err){
               console.error('error',err)
         }  
+      }else{
+        setSearchedBooks([])
       }
     }
     search_function()
   }, [searched])
+  const existing=true;
     return (
         <div className="search-books">
         <div className="search-books-bar">
@@ -37,12 +51,12 @@ export default function Search({change,allBooks,add}) {
         <div className="search-books-results">
           <ol className="books-grid">
             {searchedBooks && searchedBooks.filter(book => book.imageLinks!==undefined).map(book =>(
-              <SearchedBooksItem
+              <Section
               key={book.id}
               book={book}
               change={change}
-              add={add}
               allBooks={allBooks}
+              existing={existing}
               />
             ))}
           </ol>

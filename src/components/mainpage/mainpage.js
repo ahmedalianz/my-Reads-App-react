@@ -1,13 +1,14 @@
 import React from 'react'
-import Section from './section'
 import {Link} from 'react-router-dom'
+import Shelf from './shelf';
 
 export default function MainPage({allBooks,change}) {
   const filterer=books=>shelf=>books.filter(book =>book.shelf===shelf),
         filterBy=filterer(allBooks),
         booksInShelf1=filterBy('currentlyReading'),
         booksInShelf2=filterBy('wantToRead'),
-        booksInShelf3=filterBy('read');
+        booksInShelf3=filterBy('read'),
+        booksInShelves=[booksInShelf1,booksInShelf2,booksInShelf3];
     return (
         <div className="list-books">
         <div className="list-books-title">
@@ -15,48 +16,13 @@ export default function MainPage({allBooks,change}) {
         </div>
         <div className="list-books-content">
           <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                    {booksInShelf1.map(book => (
-                      <Section
-                      key={book.id}
-                      book={book}
-                      change={change}
-                      />
-                    ))}
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                {booksInShelf2.map(book => (
-                      <Section
-                      key={book.id}
-                      book={book}
-                      change={change}
-                      />
-                    ))}
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                {booksInShelf3.map(book => (
-                      <Section
-                      key={book.id}
-                      book={book}
-                      change={change}
-                      />
-                    ))}
-                </ol>
-              </div>
-            </div>
+            {booksInShelves.map(shelf => (
+              <Shelf
+              shelf={shelf}
+              key={booksInShelves.indexOf(shelf)}
+              change={change}
+              />
+            ))}
           </div>
         </div>
         <div className="open-search">
