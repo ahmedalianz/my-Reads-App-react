@@ -1,8 +1,16 @@
 My-Reads App =>> Running on the following link : https://my-readsz1.netlify.app
 
-To initiate the application you will need to do npm install in the treminal to install all the dependencies 
+To initiate the application you will need to do
 
-then npm start to run on localhost
+ npm install
+
+  in the treminal to install all the dependencies 
+
+then
+
+npm start
+ 
+to run on localhost
 
 
 it's an application that lets the user choose his favorite books from a bookshelf
