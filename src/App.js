@@ -10,10 +10,13 @@ class BooksApp extends React.Component {
     allBooks: []
   }
 async componentDidMount(){
-  try{
+  try
+    {
     let res=await BooksAPI.getAll()
     this.setState({allBooks:res})
-  }catch(err){
+    }
+  catch(err)
+  {
     console.error(err)
   }
 }
@@ -33,7 +36,8 @@ async componentDidMount(){
         author:book.author,
         imageLinks:book.imageLinks
       }
-      let allbooks=this.state.allBooks.push(moved_book)
+      let allbooks=[...this.state.allBooks]
+      allbooks.push(moved_book)
       this.setState({allbooks})
       BooksAPI.update(moved_book, selection)
     }

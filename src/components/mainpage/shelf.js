@@ -3,19 +3,19 @@ import Section from '../section'
 
 export default function Shelf({shelf,change}) {
     return (
-        <div className="bookshelf">
-        <h2 className="bookshelf-title">Currently Reading</h2>
-        <div className="bookshelf-books">
-          <ol className="books-grid">
-              {shelf.map(book => (
+          <div className="bookshelf">
+            <h2 className="bookshelf-title">Currently Reading</h2>
+            <div className="bookshelf-books">
+              <ol className="books-grid">
+                {shelf.map(book => (
                 <Section
-                key={book.id}
-                book={book}
-                change={change}
+                  key={book.id}
+                  book={book}
+                  change={change}
                 />
-              ))}
-          </ol>
-        </div>
-      </div>
+                ))}
+              </ol>
+            </div>
+          </div>
 )
 }

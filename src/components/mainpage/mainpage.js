@@ -11,27 +11,31 @@ export default function MainPage({allBooks,change}) {
         booksInShelf3=filterBy('read'),
         booksInShelves=[booksInShelf1,booksInShelf2,booksInShelf3];
     return (
-        <div className="list-books">
-        <div className="list-books-title">
-          <h1>MyReads</h1>
-        </div>
-        <div className="list-books-content">
-          <div>
-            {booksInShelves.map(shelf => (
+          <div className="list-books">
+
+            <div className="list-books-title">
+            <h1>MyReads</h1>
+            </div>
+
+            <div className="list-books-content">
+              <div>
+              {booksInShelves.map(shelf => (
               <Shelf
-              shelf={shelf}
-              key={booksInShelves.indexOf(shelf)}
-              change={change}
+                shelf={shelf}
+                key={booksInShelves.indexOf(shelf)}
+                change={change}
               />
-            ))}
+              ))}
+              </div>
+            </div>
+
+            <div className="open-search">
+              <Link to="/search">
+              <button>Add a book</button>
+              </Link>
+            </div>
+            
           </div>
-        </div>
-        <div className="open-search">
-            <Link to="/search">
-          <button>Add a book</button>
-          </Link>
-        </div>
-      </div>
 )
 }
 MainPage.propTypes={
