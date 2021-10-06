@@ -1,10 +1,13 @@
 import React from 'react'
-import Current from './currentlyreading/current'
-import WantRead from './wantread/wantread'
-import Read from './read/read'
+import Section from './section'
 import {Link} from 'react-router-dom'
 
 export default function MainPage({allBooks,change}) {
+  const filterer=books=>shelf=>books.filter(book =>book.shelf===shelf),
+        filterBy=filterer(allBooks),
+        booksInShelf1=filterBy('currentlyReading'),
+        booksInShelf2=filterBy('wantToRead'),
+        booksInShelf3=filterBy('read');
     return (
         <div className="list-books">
         <div className="list-books-title">
@@ -16,11 +19,10 @@ export default function MainPage({allBooks,change}) {
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                    {allBooks.filter(book=>book.position==='currentlyReading')
-                    .map(book_CR => (
-                      <Current
-                      key={book_CR.id}
-                      book_CR={book_CR}
+                    {booksInShelf1.map(book => (
+                      <Section
+                      key={book.id}
+                      book={book}
                       change={change}
                       />
                     ))}
@@ -31,11 +33,10 @@ export default function MainPage({allBooks,change}) {
               <h2 className="bookshelf-title">Want to Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                    {allBooks.filter(book=>book.position==='wantToRead')
-                    .map(book_WR => (
-                      <WantRead
-                      key={book_WR.id}
-                      book_WR={book_WR}
+                {booksInShelf2.map(book => (
+                      <Section
+                      key={book.id}
+                      book={book}
                       change={change}
                       />
                     ))}
@@ -46,11 +47,10 @@ export default function MainPage({allBooks,change}) {
               <h2 className="bookshelf-title">Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                    {allBooks.filter(book=>book.position==='read')
-                    .map(book_r => (
-                      <Read
-                      key={book_r.id}
-                      book_r={book_r}
+                {booksInShelf3.map(book => (
+                      <Section
+                      key={book.id}
+                      book={book}
                       change={change}
                       />
                     ))}

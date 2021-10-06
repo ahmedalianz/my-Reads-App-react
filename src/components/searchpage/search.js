@@ -1,19 +1,28 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
 import SearchedBooksItem from './searchedbooks'
-import Removedbooks from './removedbooks'
-
+import * as BooksAPI from '../../BooksAPI'
 export default function Search({change,allBooks,add}) {
   const [searched,setSearched]=useState('')
   const [searchedBooks,setSearchedBooks]=useState([])
   useEffect(() => {
     async function search_function(){
-      await BooksAPI.search(searched).then(res=>setSearchedBooks(res))
+      if(searched!==''){
+        try{
+            await BooksAPI.search(searched).then(res=>{
+            if(res.error){
+                setSearchedBooks([])
+            }else{
+                setSearchedBooks(res)
+            }})
+        }
+        catch(err){
+              console.error('error',err)
+        }  
+      }
     }
-      search_function()
-    
-  }, [searched,searchedBooks])
+    search_function()
+  }, [searched])
     return (
         <div className="search-books">
         <div className="search-books-bar">
@@ -27,19 +36,13 @@ export default function Search({change,allBooks,add}) {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {searchedBooks && searchedBooks.map(book =>(
+            {searchedBooks && searchedBooks.filter(book => book.imageLinks!==undefined).map(book =>(
               <SearchedBooksItem
               key={book.id}
-              book_s={book}
-              add={add}
-              />
-            ))}
-            {allBooks.filter(book=>book.position==='none')
-            .map(book=> (
-              <Removedbooks
-              key={book.id}
-              book_s={book}
+              book={book}
               change={change}
+              add={add}
+              allBooks={allBooks}
               />
             ))}
           </ol>
