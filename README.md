@@ -15,9 +15,14 @@ the main page also has 3 sections
 
 a-the currently reading books
 
+<<<<<<< HEAD
 b-the books you want to read
+=======
+b-the books you want to read 
+>>>>>>> abe47ffc192b1bfcf3a593cb03ed93aebe51214e
 
 c-the books you already read
+
 
 you can remove any book to return it to the bookshelf
 
