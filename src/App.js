@@ -4,6 +4,7 @@ import {BrowserRouter ,Switch,Route} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Search from './components/searchpage/search'
 import MainPage from './components/mainpage/mainpage'
+import PropTypes from 'prop-types';
 class BooksApp extends React.Component {
   state = {
     allBooks: []
@@ -41,26 +42,28 @@ async componentDidMount(){
     const{allBooks}=this.state
     return (
       <BrowserRouter>
-      <div className="app">
-        <Switch>
-          <Route path="/" exact >
-          <MainPage
-          allBooks={allBooks}
-          change={this.handleChange}
-          />
-          </Route>
-          <Route path="/search">
-          <Search
-          allBooks={allBooks}
-          add={this.handleAdd}
-          change={this.handleChange}
-          />
-          </Route>
+        <div className="app">
+          <Switch>
+            <Route path="/" exact >
+                <MainPage
+                allBooks={allBooks}
+                change={this.handleChange}
+                />
+            </Route>
+              <Route path="/search">
+                <Search
+                allBooks={allBooks}
+                change={this.handleChange}
+                />
+            </Route>
           </Switch>
-      </div>
+        </div>
       </BrowserRouter>
     )
   }
 }
-
+BooksApp.propTypes={
+  allBooks:PropTypes.array,
+  change:PropTypes.func
+}
 export default BooksApp

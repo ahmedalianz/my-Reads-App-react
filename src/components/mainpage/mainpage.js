@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import Shelf from './shelf';
+import PropTypes from 'prop-types';
 
 export default function MainPage({allBooks,change}) {
   const filterer=books=>shelf=>books.filter(book =>book.shelf===shelf),
@@ -32,4 +33,10 @@ export default function MainPage({allBooks,change}) {
         </div>
       </div>
 )
+}
+MainPage.propTypes={
+  allBooks:PropTypes.array,
+  change:PropTypes.func,
+  key:PropTypes.string,
+  shelf:PropTypes.array,
 }

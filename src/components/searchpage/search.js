@@ -2,6 +2,8 @@ import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import * as BooksAPI from '../../BooksAPI'
 import Section from '../section'
+import PropTypes from 'prop-types';
+
 export default function Search({change,allBooks}) {
   const [searched,setSearched]=useState('')
   const [searchedBooks,setSearchedBooks]=useState([])
@@ -63,4 +65,11 @@ export default function Search({change,allBooks}) {
         </div>
       </div>
 )
+}
+Search.propTypes={
+  allBooks:PropTypes.array,
+  existing:PropTypes.bool,
+  change:PropTypes.func,
+  book:PropTypes.object,
+  key:PropTypes.string
 }
