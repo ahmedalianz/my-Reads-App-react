@@ -4,9 +4,7 @@ To initiate the application you will need to do
 
  npm install
 
-  in the treminal to install all the dependencies 
-
-then
+  in the treminal to install all the dependencies then
 
 npm start
  
