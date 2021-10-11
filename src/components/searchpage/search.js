@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 export default function Search({change,allBooks}) {
   const [searched,setSearched]=useState('')
   const [searchedBooks,setSearchedBooks]=useState([])
+  const [notFound,setNotFound]=useState('')
 
   searchedBooks.map((book) =>{
     const existingBook=allBooks.find(b=> b.id===book.id)
@@ -22,11 +23,13 @@ export default function Search({change,allBooks}) {
     async function search_function(){
       if(searched!==''){
         try{
-            await BooksAPI.search(searched).then(res=>{
+          await BooksAPI.search(searched).then(res=>{
             if(res.error){
                 setSearchedBooks([])
+                setNotFound(<img src='images/nf.png' alt='Not Found'/>)
             }else{
                 setSearchedBooks(res)
+                setNotFound('')
             }})
         }
         catch(err){
@@ -39,7 +42,6 @@ export default function Search({change,allBooks}) {
     search_function()
   }, [searched])
 
-  const existing=true;
     return (
         <div className="search-books">
 
@@ -58,6 +60,7 @@ export default function Search({change,allBooks}) {
 
           <div className="search-books-results">
             <ol className="books-grid">
+              {notFound}
               {searchedBooks && searchedBooks
               .filter(book => book.imageLinks!==undefined)
               .map(book =>(
@@ -66,7 +69,6 @@ export default function Search({change,allBooks}) {
                 book={book}
                 change={change}
                 allBooks={allBooks}
-                existing={existing}
               />
               ))}
             </ol>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Section({book,change,existing}) {
+export default function Section({book,change}) {
   
     return (
         <li>
@@ -10,7 +10,7 @@ export default function Section({book,change,existing}) {
               style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}>
               </div>
               <div className="book-shelf-changer">
-                <select value={book.shelf} onChange={(e)=>{change(e.target.value,book,existing)}}>
+                <select value={book.shelf} onChange={(e)=>{change(e.target.value,book)}}>
                   <option value="move" disabled>Move to...</option>
                   <option value="currentlyReading">Currently Reading</option>
                   <option value="wantToRead">Want to Read</option>

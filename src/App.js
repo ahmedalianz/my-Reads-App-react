@@ -1,49 +1,36 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import './App.css'
 import {BrowserRouter ,Switch,Route} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Search from './components/searchpage/search'
 import MainPage from './components/mainpage/mainpage'
 import PropTypes from 'prop-types';
-class BooksApp extends React.Component {
-  state = {
-    allBooks: []
-  }
-async componentDidMount(){
-  try
-    {
-    let res=await BooksAPI.getAll()
-    this.setState({allBooks:res})
-    }
-  catch(err)
-  {
-    console.error(err)
-  }
-}
+const BooksApp=() => {
+  const[allBooks,setAllBooks]=useState([])
 
-  handleChange = (selection,book,existing) => {
-    if(!existing){
-      let index=this.state.allBooks.indexOf(book)
-      let moved_book=this.state.allBooks[index]
-      moved_book.shelf=selection
-      this.setState({book:moved_book})
-      BooksAPI.update(moved_book, selection)
-    }else{
-      const moved_book={
-        id:book.id,
-        shelf:selection,
-        title:book.title,
-        author:book.author,
-        imageLinks:book.imageLinks
-      }
-      let allbooks=[...this.state.allBooks]
-      allbooks.push(moved_book)
-      this.setState({allbooks})
-      BooksAPI.update(moved_book, selection)
+useEffect(() => {
+  async function getBooks(){
+    try
+    {
+      let res=await BooksAPI.getAll()
+      setAllBooks(res)
     }
+      catch(err)
+    {
+      console.error(err)
+    }
+  }
+  getBooks()
+},[])
+
+
+  const handleChange = (selection,book) => {
+
+    let books=allBooks.filter(b=>b.id!==book.id)
+    book.shelf=selection
+    setAllBooks([...books,book])
+    BooksAPI.update(book, selection)
 }
-  render() {
-    const{allBooks}=this.state
     return (
       <BrowserRouter>
         <div className="app">
@@ -51,13 +38,13 @@ async componentDidMount(){
             <Route path="/" exact >
                 <MainPage
                 allBooks={allBooks}
-                change={this.handleChange}
+                change={handleChange}
                 />
             </Route>
-              <Route path="/search">
+            <Route path="/search">
                 <Search
                 allBooks={allBooks}
-                change={this.handleChange}
+                change={handleChange}
                 />
             </Route>
           </Switch>
@@ -65,7 +52,7 @@ async componentDidMount(){
       </BrowserRouter>
     )
   }
-}
+
 BooksApp.propTypes={
   allBooks:PropTypes.array,
   change:PropTypes.func

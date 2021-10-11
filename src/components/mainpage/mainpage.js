@@ -10,6 +10,7 @@ export default function MainPage({allBooks,change}) {
         booksInShelf2=filterBy('wantToRead'),
         booksInShelf3=filterBy('read'),
         booksInShelves=[booksInShelf1,booksInShelf2,booksInShelf3];
+
     return (
           <div className="list-books">
 
